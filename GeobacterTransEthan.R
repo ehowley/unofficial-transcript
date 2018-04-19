@@ -208,7 +208,10 @@ library(fields)
 res <- biclust::biclust(BicatYeast, method = BCQU())
 # Show the first bicluster
 biclust::bicluster(matrld, res, 1)
-
+#example: create list of bicluster 6
+biclust6= biclust::bicluster(matrld, res, 6)[[1]]
+#export list of gene names to a txt file
+write.table(x=rownames(biclust6),row.names=FALSE, col.names=FALSE, file="biclust6genes.txt", quote=FALSE )
 
 colnames(matrld)<- c("plank1", "plank2", "plank3", "low1", "low2", "low3", "high1","high2","high3", "fbf1", "fbf2", "fbf3")
 quheatmap(matrld, biclustrld2, showlabel = TRUE, number=7 )
