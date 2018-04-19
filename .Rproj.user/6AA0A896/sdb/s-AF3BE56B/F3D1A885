@@ -1,0 +1,29 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1518749405408.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "F3D1A885",
+    "lastKnownWriteTime" : 1090253327553265667,
+    "last_content_update" : 1518749405408,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "7E7D8A68",
+        "caption" : "GScytnames",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=GScytnames&cache_key=7E7D8A68",
+        "displayedObservations" : 135,
+        "environment" : "",
+        "object" : "GScytnames",
+        "preview" : 0,
+        "totalObservations" : 135,
+        "variables" : 1
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}
