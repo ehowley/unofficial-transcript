@@ -191,7 +191,8 @@ plotMA(resHL, ylim=c(-5,5), alpha=0.05, main="High vs. Low fold change, p<0.05 d
 idx <- identify(resHL$baseMean, resHL$log2FoldChange)
 rownames(resHL)[idx]
 
-resHL.05table<-table(resHL$padj < 0.05)
+resHL.05table<-resHL[matrix(resHL$padj < 0.05)] #this is not working
+p_1genesHL = rownames(resHL$padj<0.1) #also not working
 head(resHL.05table)
 #same thing with 100 genes
 topVarGenes100HL <- head(order(rowVars(assay(rldHL)), decreasing = TRUE), 100)
