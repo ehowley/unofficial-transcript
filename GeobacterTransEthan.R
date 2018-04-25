@@ -81,7 +81,7 @@ pheatmap(sampleDistMatrix, clustering_distance_rows = sampleDists, clustering_di
 #Begin DGE analysis with DESeq2 NB-GLM approach. The DESeq function will do
 #sample size estimates, gene dispersion estimates and fit data to NB-GLM
 dds2 <- DESeq(dds)
-res <- results(dds2)
+resdeseq <- results(dds2)
 summary(res)
 
 #plot counts
@@ -196,6 +196,15 @@ head(resHL[(resHL$padj<0.05) %in% TRUE,  ]) #it works!
 resHL.05table = resHL[(resHL$padj<0.05) %in% TRUE,  ]
 HL.05up=resHL.05table[(resHL.05table$log2FoldChange>0) %in% TRUE,]
 HL.05down=resHL.05table[(resHL.05table$log2FoldChange<0) %in% TRUE,]
+
+
+resHL.1table = resHL[(resHL$padj<0.1) %in% TRUE,  ]
+HL.1up=resHL.1table[(resHL.1table$log2FoldChange>0) %in% TRUE,]
+HL.1down=resHL.1table[(resHL.1table$log2FoldChange<0) %in% TRUE,]
+
+#print up and down regulated gene names to txt for DAVID
+write.table(x=rownames(HL.1down),row.names=FALSE, col.names=FALSE, file="HLdown.txt", quote=FALSE )
+write.table(x=rownames(HL.1up),row.names=FALSE, col.names=FALSE, file="HLup.txt", quote=FALSE )
 
 #resHLp05table<-resHL[matrix(resHL$padj < 0.05)] #this is not working
 #p_1genesHL = rownames(resHL$padj<0.1) #also not working
