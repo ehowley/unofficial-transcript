@@ -132,7 +132,7 @@ heatmaply(mat100)
 #let's compare only two conditions: (nope, start from top with two conditions only)
 #resHL <- results(dds2, contrast=c("description", "High", "Low")) 
 resHL.05 <- results(dds2, alpha = 0.05,contrast=c("description", "High", "Low") )
-table(resHL.01$padj < 0.05)
+table(resHL.05$padj < 0.05)
 summary(resHL.05)
 #heatmap top 20 high v low
 #resOrderedHL <- resHL[order(resHL$padj),]
@@ -191,9 +191,15 @@ plotMA(resHL, ylim=c(-5,5), alpha=0.05, main="High vs. Low fold change, p<0.05 d
 idx <- identify(resHL$baseMean, resHL$log2FoldChange)
 rownames(resHL)[idx]
 
-resHL.05table<-resHL[matrix(resHL$padj < 0.05)] #this is not working
-p_1genesHL = rownames(resHL$padj<0.1) #also not working
-head(resHL.05table)
+##subset the differentially expressed genes padj<0.05
+head(resHL[(resHL$padj<0.05) %in% TRUE,  ]) #it works!
+resHL.05table = resHL[(resHL$padj<0.05) %in% TRUE,  ]
+HL.05up=resHL.05table[(resHL.05table$log2FoldChange>0) %in% TRUE,]
+HL.05down=resHL.05table[(resHL.05table$log2FoldChange<0) %in% TRUE,]
+
+#resHLp05table<-resHL[matrix(resHL$padj < 0.05)] #this is not working
+#p_1genesHL = rownames(resHL$padj<0.1) #also not working
+#head(resHL.05table)
 #same thing with 100 genes
 topVarGenes100HL <- head(order(rowVars(assay(rldHL)), decreasing = TRUE), 100)
 mat100HL <- assay(rldHL)[topVarGenes100HL, ]
