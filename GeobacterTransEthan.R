@@ -82,11 +82,11 @@ pheatmap(sampleDistMatrix, clustering_distance_rows = sampleDists, clustering_di
 #sample size estimates, gene dispersion estimates and fit data to NB-GLM
 dds2 <- DESeq(dds)
 resdeseq <- results(dds2)
-summary(res)
+summary(resdeseq)
 
 #plot counts
 plotCounts(dds2, gene="omcZ", intgroup = "description")
-plotPCA(rld, intgroup="description")
+plplotPCA(rld, intgroup="description")
 
 #pretty plot count function
 library(ggplot2)
@@ -100,7 +100,14 @@ prettyPlot("omcZ", dds2)
 
 #Now, look at number of genes sig different based on 0.05, 0.01 and 0.001 levels
 res.05 <- results(dds2, alpha = 0.05)
-table(res.05$padj < 0.05)
+resAll.05table = res.05[(res.05$padj<0.05) %in% TRUE,  ]
+FBFp.05up=resAll.05table[(resAll.05table$log2FoldChange>0) %in% TRUE,]
+FBFp.05down=resAll.05table[(resAll.05table$log2FoldChange<0) %in% TRUE,]
+
+#output lists of up and down reg genes in plank v FBF
+write.table(x=rownames(FBFp.05down),row.names=FALSE, col.names=FALSE, file="plankFBFdown.txt", quote=FALSE )
+write.table(x=rownames(FBFp.05up),row.names=FALSE, col.names=FALSE, file="plankFBFup.txt", quote=FALSE )
+
 summary(res.05)
 res.001 <- results(dds2, alpha = 0.001)
 table(res.001$padj < 0.001)
