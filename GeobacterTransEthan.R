@@ -96,7 +96,7 @@ prettyPlot <- function(gene1,dds){
     scale_y_log10() + 
     geom_point(position=position_jitter(width=.1,height=0), size=3) + ggtitle(gene1)
 }
-prettyPlot("omcZ", dds2)
+prettyPlot("GSU3219", dds2)
 
 #Now, look at number of genes sig different based on 0.05, 0.01 and 0.001 levels
 res.05 <- results(dds2, alpha = 0.05)
